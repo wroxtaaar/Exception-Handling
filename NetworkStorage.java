@@ -22,26 +22,33 @@ public class NetworkStorage {
     }
 
     public Map<String, String> getUsernameToPasswordMapping() throws IOException {
-        URL file = new URL(
-                "https://gitlab.crio.do/crio_bytes/jackson/-/raw/master/src/main/java/com/example/jackson/trades.json");
+        URL url = new URL(
+                "https://gitlab.crio.do/crio_bytes/me_exception_handling/-/raw/master/resources/UnameToPass.txt");
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.openStream()));
-        System.out.println("Opened resource");
+        BufferedReader bufferedReader = null;
 
-        Map<String, String> unameToPassMap = new HashMap<String, String>();
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
+            System.out.println("Opened resource");
 
-        StringBuilder stringBuilder = new StringBuilder();
+            Map<String, String> unameToPassMap = new HashMap<String, String>();
 
-        String inputLine, userName, password;
-        while ((inputLine = bufferedReader.readLine()) != null) {
-            userName = inputLine.split(":")[0];
-            password = inputLine.split(":")[1];
-            unameToPassMap.put(userName, password);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            String inputLine, userName, password;
+            while ((inputLine = bufferedReader.readLine()) != null) {
+                userName = inputLine.split(":")[0];
+                password = inputLine.split(":")[1];
+                unameToPassMap.put(userName, password);
+            }
+            return unameToPassMap;
+
+        } finally {
+            if (bufferedReader != null) {
+                bufferedReader.close();
+            }
+            
+            System.out.println("Closed resource");
         }
-
-        bufferedReader.close();
-        System.out.println("Closed resource");
-
-        return unameToPassMap;
     }
 }
