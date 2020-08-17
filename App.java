@@ -1,6 +1,13 @@
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,7 +17,9 @@ public class App {
     NetworkStorage networkStorage = new NetworkStorage();
 
     public String loginOffline(String username, String inputPassword) {
-        String expectedPassword = localStorage.getPassword(username);
+        String expectedPassword;
+
+        expectedPassword = localStorage.getPassword(username);
 
         if (expectedPassword.equals(inputPassword)) {
             return "Login successful";
@@ -19,21 +28,11 @@ public class App {
         }
     }
 
-    public static void main(String[] args) {
-        App app = new App();
-        System.out.println(app.loginOffline("Dhoni", "dhoni"));
-        // System.out.println(new App().loginOnline("Dhoni", "dhoni"));
-    }
-
-
     public String loginOnline(String username, String password) {
         try {
             String expected = networkStorage.getPassword(username);
 
-            if (expected == null) {
-                return "No record of user";
-            }
-            else if (expected.equals(password)) {
+            if (expected.equals(password)) {
                 return "Login successful";
             } else {
                 return "Invalid password!";
@@ -46,22 +45,27 @@ public class App {
         }
     }
 
-    // public void login(String username, String password) {
-    //     String expected = secStorage.getPassword(username);
-    //     if (expected == null) {
-    //         expected = netStorage.getPassword(username);
-    //     }
-    //     System.out.println(expected);
+    public static void main(String[] args) {
+        App app = new App();
+        System.out.println(app.loginOffline("Dhoni", "dhoni"));
+      
+        // Below lines are to be commented out in Milestone 5 only
 
-    //     if (expected == null) {
-    //         System.out.println("Internal issue");
+    //     final ExecutorService executor = Executors.newFixedThreadPool(5); // it's just an arbitrary number
+    //     final List<Future<?>> futures = new ArrayList<>();
+    //     for (int i = 0; i < 1000; i++) {
+    //         Future<?> future = executor.submit(() -> {
+    //             app.loginOnline("Dhoni", "dhoni");
+    //         });
+    //         System.out.println(i);
+    //         futures.add(future);
     //     }
-    //     else if (!expected.equals(password)) {
-    //         System.out.println("Invalid username/password!");
-    //     } else {
-    //         System.out.println("Login successful");
+    //     try {
+    //         for (Future<?> future : futures) {
+    //             future.get(); // do anything you need, e.g. isDone(), ...
+    //         }
+    //     } catch (InterruptedException | ExecutionException e) {
+    //         e.printStackTrace();
     //     }
-
-    // }
-
+    }
 }
