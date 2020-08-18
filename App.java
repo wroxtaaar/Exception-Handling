@@ -65,7 +65,7 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        System.out.println(app.loginOffline("Dhoni", "dhoni"));
+        System.out.println(app.loginOffline("Dhoni", "dhoniPassword"));
       
         // Below lines are to be commented out in Milestone 5 only
 
