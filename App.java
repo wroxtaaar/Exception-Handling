@@ -28,22 +28,24 @@ public class App {
         }
     }
 
-    public String loginOnline(String username, String password) {
-        try {
-            String expected = networkStorage.getPassword(username);
+    // Uncomment the code for loginOnline method in Milestone 4
 
-            if (expected.equals(password)) {
-                return "Login successful";
-            } else {
-                return "Invalid password!";
-            }
+    // public String loginOnline(String username, String password) {
+    //     try {
+    //         String expected = networkStorage.getPassword(username);
 
-        } catch (IOException e) {
-            // log error trace to file
-            e.printStackTrace();
-            return "Internal error, please try again later";
-        }
-    }
+    //         if (expected.equals(password)) {
+    //             return "Login successful";
+    //         } else {
+    //             return "Invalid password!";
+    //         }
+
+    //     } catch (IOException e) {
+    //         // log error trace to file
+    //         e.printStackTrace();
+    //         return "Internal error, please try again later";
+    //     }
+    // }
 
     public static void main(String[] args) {
         App app = new App();
