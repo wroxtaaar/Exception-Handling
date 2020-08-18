@@ -1,4 +1,4 @@
-Dhoni:dhoni
-Kohli:kohli
-Sachin:sachin
-Dravid:dravid
+Dhoni:dhoniPassword
+Kohli:kohliPassword
+Sachin:sachinPassword
+Dravid:dravidPassword
